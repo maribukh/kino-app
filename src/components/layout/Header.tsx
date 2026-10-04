@@ -40,11 +40,11 @@ export const Header = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            <button className="bg-[#EC3013] text-white text-[14px] font-bold px-6 h-11 rounded-full hover:opacity-90 transition-opacity cursor-default">
+            <button className="bg-[#EC3013] text-white text-[14px] font-bold px-6 h-11 rounded-full  transition-opacity cursor-pointer">
               Sign up
             </button>
 
-            <button className="bg-white text-[#070C1C] text-[14px] font-bold px-6 h-11 rounded-full hover:bg-white/80 transition-colors cursor-default">
+            <button className="bg-white text-[#070C1C] text-[14px] font-bold px-6 h-11 rounded-full  transition-colors cursor-pointer">
               Log in
             </button>
           </div>
