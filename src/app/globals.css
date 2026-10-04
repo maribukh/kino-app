@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "tailwindcss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@layer base {
+  body {
+    background-color: #070c1c;
+    color: #ffffff;
+    font-family: var(--font-archivo), sans-serif;
+  }
+}
