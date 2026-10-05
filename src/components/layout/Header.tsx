@@ -1,10 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 
 export const Header = () => {
   return (
-    <header className="w-full bg-[#070C1C]/80 backdrop-blur-md sticky top-0 z-50">
-      <div className="max-w-[1920px] mx-auto px-12 h-28 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-gradient-to-b from-black via-black/50 to-transparent">
+      <div className="max-w-[1920px] mx-auto px-15 h-28 flex items-center justify-between">
         <div className="flex items-center gap-12">
           <Link
             href="/"
@@ -44,7 +46,7 @@ export const Header = () => {
               Sign up
             </button>
 
-            <button className="bg-white text-[#070C1C] text-[14px] font-bold px-6 h-11 rounded-full  transition-colors cursor-pointer">
+            <button className="bg-white text-[#070C1C] text-[14px] font-bold px-6 h-11 rounded-full transition-colors cursor-pointer">
               Log in
             </button>
           </div>
