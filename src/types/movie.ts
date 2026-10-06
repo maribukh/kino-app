@@ -39,3 +39,11 @@ export interface Movie {
 export interface MoviesApiResponse {
   data: Movie[];
 }
+
+export interface HeroControlsProps {
+  total: number;
+  currentIndex: number;
+  onSelect: (index: number) => void;
+  onPrev: () => void;
+  onNext: () => void;
+}
