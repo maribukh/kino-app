@@ -1,12 +1,17 @@
-export default function Home() {
+"use client";
+
+import { HeroSection } from "@/components/movies/HeroSection";
+import { RecentlyViewedSection } from "@/components/movies/RecentlyViewedSection";
+import { NowPlayingSection } from "@/components/movies/NowPlayingSection";
+import { ComingSoonSection } from "@/components/movies/ComindSoonSection";
+
+export default function HomePage() {
   return (
-    <div className="max-w-container mx-auto px-12 py-8">
-      <h1 className="text-display font-bold text-text-primary mb-4">
-        Now Showing
-      </h1>
-      <p className="text-body-l text-text-secondary">
-        Select a movie to book your tickets.
-      </p>
-    </div>
+    <main className="min-h-screen bg-[#070C1C] text-white">
+      <HeroSection />
+      <RecentlyViewedSection />
+      <NowPlayingSection />
+      <ComingSoonSection />
+    </main>
   );
 }
