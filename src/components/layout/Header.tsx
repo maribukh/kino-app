@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { Input } from "../ui/Input";
+import { Button } from "../ui/Button";
 
 export const Header = () => {
   return (
@@ -34,21 +36,23 @@ export const Header = () => {
               height={14}
               className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4"
             />
-            <input
-              type="text"
+            <Input
+              icon={
+                <Image
+                  src="/images/icons/search.svg"
+                  alt="search"
+                  width={16}
+                  height={16}
+                />
+              }
               placeholder="Search films and live events"
-              className="w-full h-11 pl-11 pr-4 bg-white/10 rounded-full text-[14px] text-white placeholder:text-white focus:outline-none hover:border-[#A9A9A9] transition-all"
+              wrapperClassName="w-[380px]"
             />
           </div>
 
           <div className="flex items-center gap-3">
-            <button className="bg-[#EC3013] text-white text-[14px] font-bold px-6 h-11 rounded-full  transition-opacity cursor-pointer">
-              Sign up
-            </button>
-
-            <button className="bg-white text-[#070C1C] text-[14px] font-bold px-6 h-11 rounded-full transition-colors cursor-pointer">
-              Log in
-            </button>
+            <Button variant="primary">Sign up</Button>
+            <Button variant="secondary">Log in</Button>
           </div>
         </div>
       </div>
