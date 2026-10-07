@@ -6,6 +6,7 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/features/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/ui/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -37,10 +38,6 @@ const config: Config = {
         overlay: {
           scrim: "rgba(7, 12, 28, 0.2)",
           border: "rgba(255, 255, 255, 0.1)",
-        },
-        custom: {
-          "e3e3e3-70": "rgba(227, 227, 227, 0.7)",
-          "1e2031-50": "rgba(30, 32, 49, 0.5)",
         },
       },
       fontSize: {

@@ -1,11 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import { Input } from "../ui/Input";
-import { Button } from "../ui/Button";
+import { useHeaderAuth } from "@/hooks/useHeaderAuth";
+import { HeaderSearch } from "./HeaderSearch";
+import { HeaderAuthButtons } from "./HeaderAuthButtons";
+import { HeaderUserMenu } from "./HeaderUserMenu";
 
 export const Header = () => {
+  const {
+    user,
+    isAuthenticated,
+    isMenuOpen,
+    toggleMenu,
+    closeMenu,
+    openLoginModal,
+    openSignUpModal,
+    handleLogout,
+  } = useHeaderAuth();
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full bg-gradient-to-b from-black via-black/50 to-transparent">
       <div className="max-w-[1920px] mx-auto px-15 h-28 flex items-center justify-between">
@@ -28,32 +40,22 @@ export const Header = () => {
         </div>
 
         <div className="flex items-center gap-9">
-          <div className="relative w-[380px]">
-            <Image
-              src="/images/icons/search.svg"
-              alt="Search"
-              width={14}
-              height={14}
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4"
-            />
-            <Input
-              icon={
-                <Image
-                  src="/images/icons/search.svg"
-                  alt="search"
-                  width={16}
-                  height={16}
-                />
-              }
-              placeholder="Search films and live events"
-              wrapperClassName="w-[380px]"
-            />
-          </div>
+          <HeaderSearch />
 
-          <div className="flex items-center gap-3">
-            <Button variant="primary">Sign up</Button>
-            <Button variant="secondary">Log in</Button>
-          </div>
+          {isAuthenticated && user ? (
+            <HeaderUserMenu
+              user={user}
+              isMenuOpen={isMenuOpen}
+              onToggle={toggleMenu}
+              onClose={closeMenu}
+              onLogout={handleLogout}
+            />
+          ) : (
+            <HeaderAuthButtons
+              onSignUp={openSignUpModal}
+              onLogIn={() => openLoginModal()}
+            />
+          )}
         </div>
       </div>
     </header>

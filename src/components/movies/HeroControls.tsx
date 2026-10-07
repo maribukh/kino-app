@@ -20,7 +20,7 @@ export const HeroControls = ({
               className={`h-0.75 flex-1 rounded-full cursor-pointer transition-all ${
                 idx === currentIndex
                   ? "bg-[#EC3013]"
-                  : "bg-white/40 hover:bg-white/70"
+                  : "bg-white hover:bg-white/70"
               }`}
             />
           ))}

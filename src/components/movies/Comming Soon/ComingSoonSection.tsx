@@ -8,14 +8,14 @@ export const ComingSoonSection = () => {
   const { movies, loading, error, isEmpty, refetch } = useComingSoon();
 
   return (
-    <section className="max-w-[1920px] w-full mx-auto px-16.75 py-10">
+    <section className="max-w-[1920px] w-full mx-auto px-16.75 border-t border-white/10 py-10">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-[22px] font-black text-white uppercase tracking-wider">
           COMING SOON...
         </h2>
         <Link
           href="/coming-soon"
-          className="text-[#EC3013] text-[13px] font-bold  transition-all"
+          className="text-[#EC3013] text-[13px] font-bold transition-all"
         >
           See all
         </Link>

@@ -43,8 +43,8 @@ export const ComingSoonCard = ({ movie }: ComingSoonCardProps) => {
 
         <Button
           variant="ghost"
-          size="sm"
-          className="w-fit text-[12px] gap-2 h-auto text-white font-bold border border-white/30 hover:border-white/60 hover:bg-white/5 bg-transparent overflow-hidden"
+          size="custom"
+          className="w-fit text-[12px] gap-2 px-4 py-2 text-white font-bold border border-white/30 hover:border-white/60 hover:bg-white/5 bg-transparent rounded-full"
         >
           <Image
             src="/images/icons/notification.svg"

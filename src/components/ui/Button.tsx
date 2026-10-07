@@ -1,40 +1,38 @@
-import { ButtonHTMLAttributes, ReactNode } from "react";
-
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
-  variant?: "primary" | "secondary" | "icon" | "ghost";
-  size?: "sm" | "md" | "lg";
-  className?: string;
-}
+import { ButtonProps } from "@/types/button";
 
 export const Button = ({
   children,
   variant = "primary",
   size = "md",
   className = "",
+  disabled,
   ...props
 }: ButtonProps) => {
   const baseStyles =
-    "rounded-full font-bold transition-all flex items-center justify-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed";
+    "font-bold transition-all flex items-center justify-center cursor-pointer whitespace-nowrap";
 
   const variants = {
-    primary: "bg-[#EC3013] text-white hover:opacity-90",
-    secondary: "bg-white text-[#070C1C] hover:bg-white/80",
+    primary:
+      "bg-color-red text-text-primary hover:opacity-90 disabled:bg-[#505261] disabled:text-text-secondary disabled:cursor-not-allowed disabled:hover:opacity-100",
+    secondary:
+      "bg-text-primary text-bg-page hover:bg-text-primary/90 disabled:bg-[#505261] disabled:text-text-secondary disabled:cursor-not-allowed",
     ghost:
-      "text-white font-bold border border-white/30 hover:border-white/60 hover:bg-white/5 bg-transparent",
-    icon: "bg-black/30 text-white hover:bg-black/80 backdrop-blur-sm p-0",
+      "text-text-primary border border-overlay-border hover:bg-tint-white bg-transparent disabled:opacity-50 disabled:cursor-not-allowed",
+    icon: "bg-black/30 text-text-primary hover:bg-black/80 backdrop-blur-sm p-0 rounded-full disabled:opacity-50 disabled:cursor-not-allowed",
   };
 
   const sizes = {
-    sm: "h-9 py-1.5 px-3 text-[12px]",
-    md: "h-11 px-6 text-[14px]",
-    lg: "h-12 px-6 text-[14px]",
+    sm: "h-8 px-4 text-label-s rounded-full",
+    md: "h-[41px] px-5 text-button rounded-full",
+    lg: "h-12 px-6 text-button rounded-full",
+    custom: "",
   };
 
-  const iconSize = variant === "icon" ? "w-13.5 h-13.5 rounded-full" : "";
+  const iconSize = variant === "icon" ? "w-[54px] h-[54px]" : "";
 
   return (
     <button
+      disabled={disabled}
       className={`${baseStyles} ${variants[variant]} ${
         variant !== "icon" ? sizes[size] : iconSize
       } ${className}`}
