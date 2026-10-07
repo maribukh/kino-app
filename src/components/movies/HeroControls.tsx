@@ -17,8 +17,10 @@ export const HeroControls = ({
             <div
               key={idx}
               onClick={() => onSelect(idx)}
-              className={`h-0.75 flex-1 rounded-full transition-all ${
-                idx === currentIndex ? "bg-[#EC3013]" : "bg-white"
+              className={`h-0.75 flex-1 rounded-full cursor-pointer transition-all ${
+                idx === currentIndex
+                  ? "bg-[#EC3013]"
+                  : "bg-white/40 hover:bg-white/70"
               }`}
             />
           ))}

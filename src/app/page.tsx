@@ -2,8 +2,8 @@
 
 import { HeroSection } from "@/components/movies/HeroSection";
 import { RecentlyViewedSection } from "@/components/movies/RecentlyViewedSection";
-import { NowPlayingSection } from "@/components/movies/NowPlayingSection";
-import { ComingSoonSection } from "@/components/movies/ComindSoonSection";
+import { NowPlayingSection } from "@/components/movies/Now Playing/NowPlayingSection";
+import { ComingSoonSection } from "@/components/movies/Comming Soon/ComingSoonSection";
 
 export default function HomePage() {
   return (

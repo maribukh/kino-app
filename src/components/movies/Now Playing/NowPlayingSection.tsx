@@ -1,20 +1,21 @@
 import Link from "next/link";
-import { useComingSoon } from "@/hooks/useComingSoon";
-import { MovieCard } from "./MovieCard";
+import { useNowPlaying } from "@/hooks/useNowPlaying";
+import { MovieCard } from "../MovieCard";
 import { Button } from "@/components/ui/Button";
+import { ScrollBlurOverlay } from "@/components/ui/ScrollBlurOverlay";
 
-export const ComingSoonSection = () => {
-  const { movies, loading, error, isEmpty, refetch } = useComingSoon();
+export const NowPlayingSection = () => {
+  const { movies, loading, error, isEmpty, refetch } = useNowPlaying();
 
   return (
     <section className="max-w-[1920px] w-full mx-auto px-16.75 py-10">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-[22px] font-black text-white uppercase tracking-wider">
-          COMING SOON...
+          NOW PLAYING
         </h2>
         <Link
           href="/sessions"
-          className="text-[#EC3013] text-[13px] font-bold hover:underline"
+          className="text-[#EC3013] text-[13px] font-bold transition-all"
         >
           See all
         </Link>
@@ -22,10 +23,10 @@ export const ComingSoonSection = () => {
 
       {loading && (
         <div className="flex gap-5 overflow-hidden">
-          {[...Array(4)].map((_, i) => (
+          {[...Array(5)].map((_, i) => (
             <div
               key={i}
-              className="w-[380px] h-[192px] bg-white/5 animate-pulse rounded-2xl flex-shrink-0"
+              className="w-[230px] h-[420px] bg-white/5 animate-pulse rounded-[20px] flex-shrink-0"
             />
           ))}
         </div>
@@ -42,15 +43,19 @@ export const ComingSoonSection = () => {
 
       {isEmpty && (
         <div className="text-center py-10 text-white/50">
-          No upcoming releases found.
+          No movies currently playing.
         </div>
       )}
 
       {!loading && !error && !isEmpty && (
-        <div className="flex items-center gap-5 overflow-x-auto scrollbar-hide pb-2">
-          {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} variant="coming-soon" />
-          ))}
+        <div className="relative w-full">
+          <ScrollBlurOverlay />
+
+          <div className="flex items-center gap-5 overflow-x-auto scrollbar-hide pb-2 pt-1">
+            {movies.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} variant="now-playing" />
+            ))}
+          </div>
         </div>
       )}
     </section>

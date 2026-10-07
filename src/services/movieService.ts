@@ -1,9 +1,3 @@
-export interface AgeRating {
-  code: string;
-  minAge: number;
-  description: string;
-}
-
 export interface Genre {
   id: number;
   slug: string;
@@ -15,6 +9,12 @@ export interface Format {
   slug: string;
   name: string;
   priceUplift: number;
+}
+
+export interface AgeRating {
+  code: string;
+  minAge: number;
+  description: string;
 }
 
 export interface Movie {
@@ -40,10 +40,13 @@ export interface MoviesApiResponse {
   data: Movie[];
 }
 
-export interface HeroControlsProps {
-  total: number;
-  currentIndex: number;
-  onSelect: (index: number) => void;
-  onPrev: () => void;
-  onNext: () => void;
-}
+export const getHeroMovies = async (): Promise<Movie[]> => {
+  const res = await fetch("/api/movies/hero");
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch hero movies (Status: ${res.status})`);
+  }
+
+  const responseData: MoviesApiResponse = await res.json();
+  return responseData.data;
+};

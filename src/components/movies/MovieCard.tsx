@@ -1,6 +1,6 @@
 import { Movie } from "@/types/movie";
-import { NowPlayingCard } from "./NowPlayingCard";
-import { ComingSoonCard } from "./ComingSoonCard";
+import { NowPlayingCard } from "./Now Playing/NowPlayingCard";
+import { ComingSoonCard } from "./Comming Soon/ComingSoonCard";
 
 export interface MovieCardProps {
   movie: Movie;

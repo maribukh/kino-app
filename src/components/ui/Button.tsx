@@ -20,12 +20,13 @@ export const Button = ({
   const variants = {
     primary: "bg-[#EC3013] text-white hover:opacity-90",
     secondary: "bg-white text-[#070C1C] hover:bg-white/80",
-    ghost: "bg-black/70 text-white hover:bg-black/20 backdrop-blur-sm",
+    ghost:
+      "text-white font-bold border border-white/30 hover:border-white/60 hover:bg-white/5 bg-transparent",
     icon: "bg-black/30 text-white hover:bg-black/80 backdrop-blur-sm p-0",
   };
 
   const sizes = {
-    sm: "h-9 px-4 text-[12px]",
+    sm: "h-9 py-1.5 px-3 text-[12px]",
     md: "h-11 px-6 text-[14px]",
     lg: "h-12 px-6 text-[14px]",
   };
