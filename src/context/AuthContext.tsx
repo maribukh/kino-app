@@ -13,6 +13,7 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  updateUser: (updates: Partial<User>) => void;
   signup: (data: FormData) => Promise<void>;
   login: (data: Record<string, string>) => Promise<void>;
   logout: () => void;
@@ -29,14 +30,32 @@ const API_BASE_URL =
   "https://api.kinoxii.redberryinternship.ge/api";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(() => {
-    if (typeof window === "undefined") return null;
-    const savedUser = localStorage.getItem("user");
-    return savedUser ? JSON.parse(savedUser) : null;
-  });
+  const [user, setUser] = useState<User | null>(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [modalMode, setModalMode] = useState<"login" | "signup" | null>(null);
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (!savedUser) return;
+
+    queueMicrotask(() => {
+      try {
+        setUser(JSON.parse(savedUser));
+      } catch {
+        setUser(null);
+      }
+    });
+  }, []);
+
+  const updateUser = (updates: Partial<User>) => {
+    setUser((currentUser) => {
+      if (!currentUser) return currentUser;
+      const updatedUser = { ...currentUser, ...updates };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      return updatedUser;
+    });
+  };
 
   const signup = async (formData: FormData) => {
     const res = await fetch(`${API_BASE_URL}/register`, {
@@ -97,6 +116,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         user,
         isAuthenticated: !!user,
         isLoading,
+        updateUser,
         signup,
         login,
         logout,

@@ -10,8 +10,8 @@ export const HeaderSearch = () => {
         <Image
           src="/images/icons/search.svg"
           alt="search"
-          width={15}
-          height={15}
+          width={16}
+          height={16}
         />
       }
       placeholder="Search films and live events"

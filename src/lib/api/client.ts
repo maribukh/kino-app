@@ -28,7 +28,7 @@ export const apiClient = async <T>(
   }
 
   const token =
-    typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   const config: RequestInit = {
     method: options.method || "GET",
@@ -48,7 +48,7 @@ export const apiClient = async <T>(
 
     if (response.status === 401) {
       if (typeof window !== "undefined") {
-        localStorage.removeItem("auth_token");
+        localStorage.removeItem("token");
       }
     }
 

@@ -25,7 +25,7 @@ export const AuthInput = forwardRef<HTMLInputElement, AuthInputProps>(
           <input
             ref={ref}
             {...props}
-            className={`w-full h-[48px] px-4 pr-16 rounded-[16px] bg-[#161B2E] text-text-primary placeholder:text-text-secondary/50 text-[14px] border transition-all outline-none ${
+            className={`w-full h-[40px] px-4 rounded-[12px] bg-bg-card text-text-primary placeholder:text-text-secondary/50 text-[14px] transition-all outline-none ${
               error
                 ? "border-color-red focus:border-color-red"
                 : isValid

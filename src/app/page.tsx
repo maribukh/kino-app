@@ -1,7 +1,7 @@
 "use client";
 
 import { HeroSection } from "@/components/movies/HeroSection";
-import { RecentlyViewedSection } from "@/components/profile/RecentlyViewedSection";
+import { RecentlyViewedSection } from "@/components/profile/RecentlyViewed/RecentlyViewedSection";
 import { NowPlayingSection } from "@/components/movies/Now Playing/NowPlayingSection";
 import { ComingSoonSection } from "@/components/movies/Comming Soon/ComingSoonSection";
 
