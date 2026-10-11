@@ -249,8 +249,10 @@ export const BookingPage = ({ sessionId }: BookingPageProps) => {
     return Object.keys(errors).length === 0;
   };
 
-  const submitOrder = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const submitOrder = async (
+    event?: FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    if (event) event.preventDefault();
     if (!hold || !validateCheckout()) return;
     setIsCheckingOut(true);
     setErrorMessage(null);
@@ -394,7 +396,7 @@ export const BookingPage = ({ sessionId }: BookingPageProps) => {
 
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
             <div className="min-w-0 space-y-6">
-              <div className="grid grid-cols-2 rounded-2xl bg-bg-card p-1 mb-[16px]">
+              <div className="mb-[16px] grid grid-cols-2 rounded-2xl bg-bg-card p-1">
                 <button
                   type="button"
                   onClick={() => setStep("seats")}
@@ -419,7 +421,7 @@ export const BookingPage = ({ sessionId }: BookingPageProps) => {
                   <div className="rounded-2xl bg-bg-card py-3 text-center text-[11px] font-bold uppercase tracking-wider text-white/60">
                     SCREEN
                   </div>
-                  <div className="max-h-[380px] space-y-4 mt-[16px] overflow-x-auto pb-2 scrollbar-hide">
+                  <div className="mt-[16px] max-h-[380px] space-y-4 overflow-x-auto pb-2 scrollbar-hide">
                     {seatMap.sections.map((section) => (
                       <section key={section.name} className="min-w-max">
                         <div className="space-y-3">
@@ -498,7 +500,7 @@ export const BookingPage = ({ sessionId }: BookingPageProps) => {
                       onChange={(e) =>
                         setContact((c) => ({ ...c, fullName: e.target.value }))
                       }
-                      className="h-12 w-full rounded-2xl bg-bg-card px-4 text-sm text-white outline-none placeholder:text-white/30 focus:bg-[#182035] mb-[16px]"
+                      className="mb-[16px] h-12 w-full rounded-2xl bg-bg-card px-4 text-sm text-white outline-none placeholder:text-white/30 focus:bg-[#182035]"
                     />
                     {fieldErrors.fullName && (
                       <span className="mt-1 text-[10px] text-[#ff4b37]">
@@ -507,7 +509,7 @@ export const BookingPage = ({ sessionId }: BookingPageProps) => {
                     )}
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4 mb-[16px]">
+                  <div className="mb-[16px] grid grid-cols-2 gap-4">
                     <div>
                       <label className="mb-1.5 block text-[11px] font-bold uppercase text-white/60">
                         Email
@@ -574,7 +576,7 @@ export const BookingPage = ({ sessionId }: BookingPageProps) => {
                     )}
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4 mt-[16px]">
+                  <div className="mt-[16px] grid grid-cols-2 gap-4">
                     <div>
                       <label className="mb-1.5 block text-[11px] font-bold uppercase text-white/60">
                         Expiry
@@ -642,12 +644,12 @@ export const BookingPage = ({ sessionId }: BookingPageProps) => {
                       return (
                         <div
                           key={seat.id}
-                          className="rounded-2xl bg-bg-card p-4 space-y-3 my-[16px]"
+                          className="my-[16px] space-y-3 rounded-2xl bg-bg-card p-4"
                         >
                           <div className="flex items-center justify-between text-sm">
                             <span className="text-xs text-white/50">
                               Seat{" "}
-                              <strong className="text-white font-bold">
+                              <strong className="font-bold text-white">
                                 {seat.code}
                               </strong>
                             </span>
@@ -733,7 +735,7 @@ export const BookingPage = ({ sessionId }: BookingPageProps) => {
                     type="button"
                     onClick={beginHold}
                     disabled={isHolding || !selected.length}
-                    className={`h-12 w-full rounded-2xl text-sm font-bold text-white transition-all ${selected.length ? "bg-[#ec3013] hover:brightness-110" : "bg-[#52596D] cursor-not-allowed"}`}
+                    className={`h-12 w-full rounded-2xl text-sm font-bold text-white transition-all ${selected.length ? "bg-[#ec3013] hover:brightness-110" : "cursor-not-allowed bg-[#52596D]"}`}
                   >
                     {isHolding ? "Reserving..." : "Checkout"}
                   </button>
