@@ -15,26 +15,28 @@ export interface FormatConfig {
 
 export interface Language {
   id: number;
+  slug: string;
   code: string;
   name: string;
 }
 
 export interface TimeBand {
   id: string;
-  name: string;
-  startHour: number;
-  endHour: number;
+  label: string;
 }
 
 export interface SortOption {
-  key: string;
+  id: string;
   label: string;
 }
 
 export interface TicketType {
-  id: string;
+  id: number;
+  slug: string;
   name: string;
-  description?: string;
+  priceRatio: number;
+  note: string | null;
+  blockedFromRatingAge: number | null;
 }
 
 export interface AgeRatingConfig {
@@ -45,7 +47,7 @@ export interface AgeRatingConfig {
 
 export interface BookingRules {
   maxSeatsPerOrder: number;
-  holdDurationMinutes: number;
+  holdMinutes: number;
 }
 
 export interface FilterOptions {
@@ -56,7 +58,8 @@ export interface FilterOptions {
   sorts: SortOption[];
   ticketTypes: TicketType[];
   ageRatings: AgeRatingConfig[];
-  rules: BookingRules;
+  maxSeatsPerOrder: number;
+  holdMinutes: number;
 }
 
 export interface FilterOptionsResponse {

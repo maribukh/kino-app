@@ -4,12 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { TicketOrder } from "@/types/ticket";
+import { ticketsApi } from "@/lib/api/tickets";
 
 interface MyTicketsProps {
   tickets: TicketOrder[];
   isLoading: boolean;
   error: string | null;
   onRetry: () => void;
+  onTicketUpdate: (ticket: TicketOrder) => void;
 }
 
 type TicketPeriod = "upcoming" | "past";
@@ -40,28 +42,57 @@ export const MyTickets = ({
   isLoading,
   error,
   onRetry,
+  onTicketUpdate,
 }: MyTicketsProps) => {
   const [period, setPeriod] = useState<TicketPeriod>("upcoming");
+  const [refundingId, setRefundingId] = useState<number | null>(null);
+  const [refundError, setRefundError] = useState<string | null>(null);
   const upcomingTickets = tickets.filter((order) => order.isUpcoming);
   const pastTickets = tickets.filter((order) => !order.isUpcoming);
   const visibleTickets = period === "upcoming" ? upcomingTickets : pastTickets;
 
+  const refundOrder = async (order: TicketOrder) => {
+    if (
+      !order.isRefundable ||
+      !window.confirm(`Refund booking ${order.reference}?`)
+    ) {
+      return;
+    }
+    setRefundingId(order.id);
+    setRefundError(null);
+    try {
+      const updatedTicket = await ticketsApi.refundOrder(order.reference);
+      onTicketUpdate(updatedTicket);
+    } catch (requestError: unknown) {
+      const message =
+        typeof requestError === "object" &&
+        requestError !== null &&
+        "message" in requestError &&
+        typeof requestError.message === "string"
+          ? requestError.message
+          : "We could not refund this booking.";
+      setRefundError(message);
+    } finally {
+      setRefundingId(null);
+    }
+  };
+
   return (
     <section aria-label="My tickets" className="max-w-5xl">
       <div className="flex items-center gap-8 border-b border-white/10 mb-6">
-        {([
-          ["upcoming", "Upcoming", upcomingTickets.length],
-          ["past", "Past", pastTickets.length],
-        ] as const).map(([value, label, count]) => (
+        {(
+          [
+            ["upcoming", "Upcoming", upcomingTickets.length],
+            ["past", "Past", pastTickets.length],
+          ] as const
+        ).map(([value, label, count]) => (
           <button
             key={value}
             type="button"
             aria-pressed={period === value}
             onClick={() => setPeriod(value)}
             className={`relative flex items-center gap-2 pb-4 text-[14px] font-medium transition-colors ${
-              period === value
-                ? "text-white"
-                : "text-white/50 hover:text-white"
+              period === value ? "text-white" : "text-white/50 hover:text-white"
             }`}
           >
             {label}
@@ -114,6 +145,14 @@ export const MyTickets = ({
         </div>
       ) : (
         <div className="space-y-4">
+          {refundError && (
+            <p
+              role="alert"
+              className="rounded-xl border border-color-red/30 bg-tint-red p-4 text-sm text-color-red"
+            >
+              {refundError}
+            </p>
+          )}
           {visibleTickets.map((order) => (
             <article
               key={order.id}
@@ -121,7 +160,8 @@ export const MyTickets = ({
             >
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-5 py-3 text-[12px]">
                 <span className="text-white/50">
-                  Booking reference <span className="text-white">{order.reference}</span>
+                  Booking reference{" "}
+                  <span className="text-white">{order.reference}</span>
                 </span>
                 <span
                   className={`rounded-full px-2.5 py-1 font-semibold capitalize ${
@@ -204,9 +244,33 @@ export const MyTickets = ({
                       </div>
                     </div>
                     <p className="text-sm font-semibold text-white">
-                      Total <span className="ml-2">{formatPrice(order.totalPrice)}</span>
+                      Total{" "}
+                      <span className="ml-2">
+                        {formatPrice(order.totalPrice)}
+                      </span>
                     </p>
                   </div>
+                  {period === "upcoming" && (
+                    <div className="mt-4 flex justify-end">
+                      <button
+                        type="button"
+                        title={
+                          order.isRefundable
+                            ? "Refund this booking"
+                            : "Refunds close 2 hours before the session"
+                        }
+                        disabled={
+                          !order.isRefundable || refundingId === order.id
+                        }
+                        onClick={() => refundOrder(order)}
+                        className="text-xs font-semibold text-color-red transition-colors hover:text-white disabled:cursor-not-allowed disabled:text-white/25"
+                      >
+                        {refundingId === order.id
+                          ? "Refunding..."
+                          : "Refund booking"}
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </article>

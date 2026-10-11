@@ -34,6 +34,9 @@ export interface Movie {
   genres: Genre[];
   formats: Format[];
   synopsis: string;
+  director?: string;
+  cast?: string;
+  availableDates?: string[];
 }
 
 export interface MoviesApiResponse {

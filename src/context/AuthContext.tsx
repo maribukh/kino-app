@@ -12,7 +12,6 @@ import { User } from "@/types/auth";
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
-  isLoading: boolean;
   updateUser: (updates: Partial<User>) => void;
   signup: (data: FormData) => Promise<void>;
   login: (data: Record<string, string>) => Promise<void>;
@@ -32,7 +31,6 @@ const API_BASE_URL =
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  const [isLoading, setIsLoading] = useState(false);
   const [modalMode, setModalMode] = useState<"login" | "signup" | null>(null);
 
   useEffect(() => {
@@ -115,7 +113,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       value={{
         user,
         isAuthenticated: !!user,
-        isLoading,
         updateUser,
         signup,
         login,

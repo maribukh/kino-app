@@ -9,7 +9,8 @@ import { useTickets } from "@/hooks/useTickets";
 export default function ProfilePage() {
   const { user, isAuthenticated, openLoginModal } = useAuth();
   const [activeTab, setActiveTab] = useState<"info" | "tickets">("info");
-  const { tickets, isLoading, error, retry } = useTickets(isAuthenticated);
+  const { tickets, isLoading, error, retry, updateTicket } =
+    useTickets(isAuthenticated);
   const ticketCount = tickets
     .filter((order) => order.status !== "refunded")
     .reduce((total, order) => total + order.tickets.length, 0);
@@ -64,6 +65,7 @@ export default function ProfilePage() {
               isLoading={isLoading}
               error={error}
               onRetry={retry}
+              onTicketUpdate={updateTicket}
             />
           ) : (
             <div className="max-w-5xl border border-white/10 rounded-2xl px-6 py-12 text-center">

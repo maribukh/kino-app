@@ -49,5 +49,13 @@ export const useTickets = (isAuthenticated: boolean) => {
     setRequestKey((currentKey) => currentKey + 1);
   };
 
-  return { tickets, isLoading, error, retry };
+  const updateTicket = (updatedTicket: TicketOrder) => {
+    setTickets((currentTickets) =>
+      currentTickets.map((ticket) =>
+        ticket.id === updatedTicket.id ? updatedTicket : ticket,
+      ),
+    );
+  };
+
+  return { tickets, isLoading, error, retry, updateTicket };
 };
